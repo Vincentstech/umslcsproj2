@@ -1,31 +1,52 @@
 public class Main {
     public static void main(String[] args) {
-        // Create sensors
-        ParkingSensor ultrasonicSensor = new UltrasonicSensor();
-        ParkingSensor cameraSensor = new CameraSensor();
+        System.out.println("Welcome to the Smart Parking System!");
 
-        // Test sensors
-        System.out.println("Ultrasonic Sensor Status: " + ultrasonicSensor.getParkingStatus());
-        System.out.println("Camera Sensor Status: " + cameraSensor.getParkingStatus());
+        // Create vehicles
+        Vehicle car1 = new Vehicle("CAR123", "Car");
+        Vehicle bike1 = new Vehicle("BIKE456", "Motorbike");
+        Vehicle truck1 = new Vehicle("TRUCK789", "Truck");
 
-        // Create parking
-        ParkingStrategy basicStrategy = new BasicParkingStrategy();
-        ParkingStrategy dynamicStrategy = new DynamicParkingStrategy();
+        // Create parking spaces
+        ParkingSpace space1 = new ParkingSpace(1, "Car");
+        ParkingSpace space2 = new ParkingSpace(2, "Motorbike");
+        ParkingSpace space3 = new ParkingSpace(3, "Truck");
 
-        // Test strategies
-        System.out.println(basicStrategy.findAvailableParking());
-        basicStrategy.optimizeParking();
+        // Parking sensor setup
+        ParkingSenor sensor = new ParkingSenor();
 
-        System.out.println(dynamicStrategy.findAvailableParking());
-        dynamicStrategy.optimizeParking();
+        // Parking strategy setup
+        ParkingStrategy strategy = new ParkingStrategy();
 
-        //parking lot
-        ParkingLot parkingLot = new ParkingLot();
-        parkingLot.addParkingSpace(new ParkingSpace("A1", "Standard"));
-        parkingLot.addParkingSpace(new ParkingSpace("B1", "Compact"));
-        parkingLot.addParkingSpace(new ParkingSpace("C1", "Disabled-Accessible"));
+        // Detect vehicles using the sensor
+        System.out.println("Detecting vehicles");
+        sensor.detectVehicle(car1);
+        sensor.detectVehicle(bike1);
+        sensor.detectVehicle(truck1);
 
-        //available spaces
-        parkingLot.displayAvailableSpaces();
+        // Assign parking spaces using the strategy
+        System.out.println("\nAssigning parking spaces");
+        strategy.assignParkingSpace(car1, space1);
+        strategy.assignParkingSpace(bike1, space2);
+        strategy.assignParkingSpace(truck1, space3);
+
+        // Display parking status
+        System.out.println("\nParking status:");
+        System.out.println(space1);
+        System.out.println(space2);
+        System.out.println(space3);
+
+        // Simulate unparking
+        System.out.println("\nUnparking vehicles");
+        space1.unparkVehicle();
+        space2.unparkVehicle();
+
+        // Display updated parking status
+        System.out.println("\nUpdated parking status:");
+        System.out.println(space1);
+        System.out.println(space2);
+        System.out.println(space3);
+
+        System.out.println("\nSmart Parking System Completed.");
     }
 }
